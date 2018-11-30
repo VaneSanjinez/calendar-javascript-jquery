@@ -4,20 +4,14 @@ var labelId = 0;
 var tdId = 0;
 $(document).ready(function() {
   var currentMonthAndYear = getCurrentMonth().concat(" " + currentYear);
-  //days.map(day => createHeader(day));
-  //$("#calendarMonth").append("<h2>" + getCurrentMonth() + "</h2>");
-  //$("#calendarMonth").append("<h2>" + getCurrentMonth() + "</h2>");
   createMonthYear(getCurrentMonth(), currentYear);
   $("#buttonLeft").click(changeLeft);
   $("#buttonRight").click(changeRight);
   $("#button2").click(getFirstDay);
   createTable(date.getMonth());
-  var numberOfDays = daysInMonth(date.getFullYear(), date.getMonth());
-  var newLabelid = $("#addEvent").click(addEventToMonth);
+  var newLabelid = $("#addEvent").click(addEvent);
   labelId++;
   getCurrentDay();
-  palindrome2("man");
-  palindrome3("ana");
 
   $("td").click(function() {
     var myClass = $(this).attr("class");
@@ -50,35 +44,12 @@ var monthNames = [
   "December"
 ];
 
-function palindrome2(str) {
-  const str1 = [...str].reverse().join("");
-  if (str === str1) {
-    console.log("Is a palindrome");
-    return true;
-  } else {
-    console.log("Is not a palindrome");
-    return false;
-  }
-}
-
-function palindrome3(str) {
-  const arr = [];
-  [...str].forEach(e => arr.unshift(e));
-  if (str === arr.join("")) {
-    console.log("Is a palindrome");
-    return true;
-  } else {
-    console.log("Is not a palindrome");
-    return false;
-  }
-}
 function createMonthYear(month, year) {
   var monthYear = month + " " + year;
   $("#calendarMonth").append("<h3>" + monthYear + "</h3>");
 }
 
 function getCurrentMonth() {
-  console.log(date.getDate());
   return monthNames[date.getMonth()];
 }
 
@@ -114,17 +85,6 @@ function changeLeft() {
   $("#calendarMonth").html("<h3>" + monthYear + "</h3>");
   $("#box").empty();
   createTable(newMonthId);
-  $(function() {
-    $("#newEvent").on("click", function() {
-      alert(
-        $(this)
-          .parent()
-          .prev("div")
-          .children("label")
-          .prop("id")
-      );
-    });
-  });
 }
 
 function changeRight() {
@@ -143,17 +103,9 @@ function changeRight() {
 }
 
 function getFirstDay(year, month) {
-  //var firstDay = new Date(date.getFullYear(), getMonthId(), 1);
   var firstDay = new Date(year, month, 1);
   first = firstDay.getDay();
-  console.log(firstDay.getDay());
   return first;
-}
-
-function getLastDay() {
-  var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-  console.log(lastDay.getDay());
-  console.log("Last day" + days[lastDay.getDay()]);
 }
 
 function getCurrentDay() {
@@ -163,26 +115,21 @@ function getCurrentDay() {
 
 function createTable(currentMonth) {
   var first = getFirstDay(currentYear, currentMonth);
-  console.log(first);
-  console.log("**********===================************");
-  var firstDay = new Date(currentYear, currentMonth, 1);
-  console.log(firstDay);
-  console.log("**********===================************");
-
+  //Append table to div
   $("#box").append("<table id= 'table1'></table>");
   var table = $("#box").children();
-  //Days of week
+  //Append Days of week to header of table
   table.append(days.map(day => "<th>" + day + "</th>"));
   //Row
   table.append("<tr></tr>");
-  //Number of spaces not filled
+  //Number of spaces not filled according first day of month
   for (let j = 1; j <= first; j++) {
     console.log("blank space!!!!");
     table.append("<td>&nbsp;</td>");
   }
-  //numbers of days
+  //Numbers of days
   var numberOfDays = daysInMonth(currentYear, getMonthId() + 1);
-  //Build month table according to first day of month
+  //Build month table
   for (let i = 1; i <= numberOfDays; i++) {
     if (i == getCurrentDay()) {
       table.append(
@@ -193,7 +140,6 @@ function createTable(currentMonth) {
           "</td>"
       );
     } else {
-      //table.append("<td>" + i + "</td>");
       table.append(
         "<td id= " +
           tdId +
@@ -206,8 +152,6 @@ function createTable(currentMonth) {
     }
     var numberTd = $("td").length;
     tdId++;
-    console.log("This is the tdId: " + tdId);
-    //console.log($("td").length);
     var remainder = numberTd % 7;
     if (numberTd == 7 || remainder == 0) {
       table.append("<tr></tr>");
@@ -217,10 +161,11 @@ function createTable(currentMonth) {
 }
 
 function daysInMonth(year, month) {
-  return new Date(year, month, 0).getDate();
+  var numberofDaysInMonth = new Date(year, month, 0).getDate();
+  return numberofDaysInMonth;
 }
 
-function addEventToMonth() {
+function addEvent() {
   var newEvent = prompt("Add new Event");
   if (!(newEvent === "")) {
     $("#newEvent").append(
@@ -235,13 +180,6 @@ function addEventToMonth() {
   return labelId;
 }
 
-function getLabelId(id) {
-  var textboxid = $('div[id="newEvent"]')
-    .prev()
-    .closest('label[type="text"]')
-    .attr("id");
-  console.log(textboxid);
-}
 function dragStart(event) {
   event.dataTransfer.setData("Text", event.target.id);
 }

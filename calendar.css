@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+body {
+  font-family: "Roboto", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  align-items: center;
+  display: inline-block;
+}
+
+#header {
+  background-color: cadetblue;
+  height: 53px;
+}
+
+td {
+  width: 130px;
+  height: 70px;
+  border-color: black;
+  text-align: right;
+}
+table {
+  border-collapse: collapse;
+  border-radius: 5px;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+#box {
+  margin-left: 200px;
+}
+#buttons {
+  display: inline-block;
+}
+#calendarMonth {
+  display: inline-block;
+  margin-left: 150px;
+}
+
+#buttonRight,
+#buttonLeft,
+#addEvent {
+  width: 50px;
+  height: 35px;
+  border-radius: 5px;
+  float: left;
+  font-size: 15px;
+  font-family: "Roboto";
+  background-color: whitesmoke;
+}
+#mainHeader {
+  margin-left: 200px;
+}
+#newEvent {
+  width: 190px;
+  height: 280px;
+  border: thin solid #444444;
+  display: table;
+  font-size: 14px;
+}
+table,
+#newEvent {
+  float: left;
+}
+
+#today {
+  background-color: #fcf8e3;
+}
+.events {
+  padding-left: 26px;
+  width: 100px;
+  display: inline-block;
+  background-color: #3a87ad;
+  border-radius: 5px;
+  border: thin solid #444444;
+  color: white;
+  text-align: left !important;
+  font-family: "Roboto";
+  font-size: 14px;
+}
+.events.hovered {
+  cursor: pointer;
+}
